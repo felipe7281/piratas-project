@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { toast } from "react-toastify";
 import { usePeople } from "../../../contexts/people";
 import {
   Container,
@@ -9,6 +10,10 @@ import {
   ButtonArea,
   Button,
 } from "./styles";
+
+import 'react-toastify/dist/ReactToastify.css';
+import { GiWhiteBook } from "react-icons/gi";
+
 
 // ESSE É UM COMPONENTE QUE ESTÁ SENDO USADO PARA CADASTRAR
 // A PESSOA, COM ESSA ESTILIZAÇÃO ELE CONSEGUE FICAR POR CIMA DE TUDO
@@ -23,6 +28,8 @@ export default function Modal() {
   const [age, setAge] = useState("");
   const { modalVisible, setModalVisible, arrayPeople, setArrayPeople } =
     usePeople();
+  
+   
 
   // AQUI EU CRIEI UMA FUNÇÃO PARA VALIDAR SE A PESSOA CONFIRMA QUE DESEJA FECHAR
   // E SE ELA CONFIRMAR AI EU FECHO O MODAL
@@ -41,9 +48,19 @@ export default function Modal() {
     // COM ISSO ELE DEIXAR DE ATUALIZAR E MANTEM OS ESTADOS
     e.preventDefault();
     if (!name || !age) {
-      return alert("Nome e idade são obrigatórios");
-    }
+      return toast.error('Nome e Idade são obrigatórios', {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
 
+        });
+    };
+    
+   
     // AQUI EU UTLIZO O SPREAD OPERATOR PARA CRIAR UM NOVO ARRAY
     // SE BASEANDO NO NOSSO ARRAY DE PESSOAS, O SPREAD ALEM DE CRIAR UM ARRAY
     // ELE PEGA TODAS AS PROPRIEDADES DELE ASSIM COMO O PUSH
@@ -70,10 +87,22 @@ export default function Modal() {
     // ENTÃO PRECISAMOS CRIAR UM NOVO ARRAY E SUBESCREVER UM NOVO EM CIMA
     setArrayPeople(newArray);
     setModalVisible(false);
-    alert("Cadastro realizado com sucesso!");
-  };
+    toast.success('Cadastro realizado com sucesso!', {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
 
-  return (
+    
+    
+     
+   };
+  
+return (
     modalVisible && (
       <Container>
         <Title>
@@ -92,7 +121,7 @@ export default function Modal() {
           <label className="labelAge">Idade</label>
           <input
             onChange={(element) => setAge(element.target.value)}
-            type="text"
+            type="number"
             placeholder="Digite a idade"
           />
 
@@ -101,6 +130,6 @@ export default function Modal() {
           </ButtonArea>
         </Form>
       </Container>
-    )
+    ) 
   );
 }

@@ -12,7 +12,7 @@ export const PeopleProvider = ({ children }) => {
   // DO REACT.JS ELE QUE ARMAZENA NOSSAS VARIÁVEIS LOCALMENTE E
   // ASSIM PODEMOS ARMAZENAR E GUARDAR VALORES ENQUANTO A PAGINA
   // NÃO FOR ATUALIZADA
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false); //innitial Modal Status
   const [arrayPeople, setArrayPeople] = useState([
     {
       name: "Tsunami",
